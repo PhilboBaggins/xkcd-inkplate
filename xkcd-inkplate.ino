@@ -70,7 +70,7 @@ void getComic(int comicId)
         Serial.println();
 
         display.clearDisplay();
-        display.drawImage(imgageURL, display.PNG, 0, 0);
+        display.drawImage(imgageURL, 0, 0);
         display.display();
     }
 }

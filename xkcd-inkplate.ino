@@ -116,17 +116,13 @@ void setup()
     display.begin();
 
     display.joinAP(WIFI_SSID, WIFI_PASSWORD);
-
-    fetchDecodeAndPrintAllXkcdData();
 }
 
 void loop()
 {
-/*
     //Serial.println("Attemping download");
     tryDisplayComic();
         
     //delay(60 * 1000); // 1 minute
     delay(5 * 1000); // 5 seconds
-*/
 }

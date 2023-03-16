@@ -85,19 +85,48 @@ void tryDisplayComic()
     getComic(randomComic);
 }
 
+void fetchDecodeAndPrintAllXkcdData()
+{
+    int latestXkcdNum;
+    if (getXkcdLatestNumber(&latestXkcdNum))
+    {
+        for (int comicId = 0; comicId < latestXkcdNum + 1; comicId++)
+        {
+            const char* const xkcdUrl = getXkcdUrl(comicId);
+            if (getHttpBody(xkcdUrl, HTTP_PAYLOAD, sizeof(HTTP_PAYLOAD)))
+            {
+                JSONVar jsonData = JSON.parse(HTTP_PAYLOAD);
+                const char* const title     = (const char* const)jsonData["title"]; // TODO: Should I grab jsonData["safe_title"] instead?
+                const char* const imgageURL = (const char* const)jsonData["img"];
+                const char* const altText   = (const char* const)jsonData["altText"];
+
+                Serial.println(HTTP_PAYLOAD);
+                Serial.print(comicId);
+                Serial.print(" - ");
+                Serial.println(title);
+                Serial.println();
+            }
+        }
+    }
+}
+
 void setup()
 {
     Serial.begin(115200);
     display.begin();
 
     display.joinAP(WIFI_SSID, WIFI_PASSWORD);
+
+    fetchDecodeAndPrintAllXkcdData();
 }
 
 void loop()
 {
+/*
     //Serial.println("Attemping download");
     tryDisplayComic();
         
     //delay(60 * 1000); // 1 minute
     delay(5 * 1000); // 5 seconds
+*/
 }

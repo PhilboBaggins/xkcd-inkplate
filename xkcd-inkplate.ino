@@ -12,7 +12,7 @@ Inkplate display(INKPLATE_3BIT);
 
 const char* const LATEST_XKCD_URL = "https://xkcd.com/info.0.json";
 
-char HTTP_PAYLOAD[1024]; // TODO: Size???????
+char HTTP_PAYLOAD[4 * 1024]; // TODO: Size???????
 
 char XKCD_URL[29 + 10 + 1];
 const char* const getXkcdUrl(int comicId)

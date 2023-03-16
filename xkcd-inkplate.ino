@@ -53,7 +53,7 @@ bool getXkcdLatestNumber(int* latestXkcdNum)
     }
 }
 
-void getComic(int comicId)
+bool tryDisplayComic(int comicId)
 {
     const char* const xkcdUrl = getXkcdUrl(comicId);
     if (getHttpBody(xkcdUrl, HTTP_PAYLOAD, sizeof(HTTP_PAYLOAD)))
@@ -72,17 +72,13 @@ void getComic(int comicId)
         display.clearDisplay();
         display.drawImage(imgageURL, 0, 0);
         display.display();
+
+        return true;
     }
-}
-
-void tryDisplayComic()
-{
-    int latestXkcdNum;
-    if (!getXkcdLatestNumber(&latestXkcdNum))
-        return;
-
-    const int randomComic = random(9, latestXkcdNum + 1);
-    getComic(randomComic);
+    else
+    {
+        return false;
+    }
 }
 
 void fetchDecodeAndPrintAllXkcdData()
@@ -120,9 +116,10 @@ void setup()
 
 void loop()
 {
-    //Serial.println("Attemping download");
-    tryDisplayComic();
-        
-    //delay(60 * 1000); // 1 minute
-    delay(5 * 1000); // 5 seconds
+    int latestXkcdNum;
+    if (getXkcdLatestNumber(&latestXkcdNum) && tryDisplayComic(random(9, latestXkcdNum + 1)))
+    {
+        //delay(60 * 1000); // 1 minute
+        delay(5 * 1000); // 5 seconds
+    }
 }

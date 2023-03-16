@@ -63,9 +63,11 @@ void getComic(int comicId)
         const char* const imgageURL = (const char* const)jsonData["img"];
         const char* const altText   = (const char* const)jsonData["altText"];
 
+        Serial.println(HTTP_PAYLOAD);
         Serial.print(comicId);
         Serial.print(" - ");
         Serial.println(title);
+        Serial.println();
 
         display.clearDisplay();
         display.drawImage(imgageURL, display.PNG, 0, 0);
